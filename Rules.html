@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules & Guidelines - The Cove</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0b0f10 0%, #0d1618 50%, #0f1a1d 100%);
+            color: #b2f0e9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0d1c1f, #1a2e32);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid #0ef6cc;
+            box-shadow: 0 4px 20px rgba(14, 246, 204, 0.3);
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #85f1dc;
+            text-shadow: 0 0 20px rgba(133, 241, 220, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        nav {
+            background: rgba(11, 26, 30, 0.9);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #85f1dc;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #0ef6cc;
+            background: rgba(14, 246, 204, 0.1);
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title h2 {
+            font-size: 3rem;
+            color: #0ef6cc;
+            margin-bottom: 1rem;
+        }
+
+        .page-title p {
+            font-size: 1.2rem;
+            color: #85f1dc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .rules-container {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .rule-category {
+            background: linear-gradient(135deg, #0d1618, #1a2328);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #0ef6cc;
+        }
+
+        .rule-category h3 {
+            color: #0ef6cc;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rules-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rules-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(14, 246, 204, 0.1);
+            position: relative;
+            padding-left: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .rules-list li:before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            color: #0ef6cc;
+            font-size: 1.3rem;
+        }
+
+        .rules-list li:last-child {
+            border-bottom: none;
+        }
+
+        .severity-high:before { content: '🚫'; }
+        .severity-medium:before { content: '⚠️'; }
+        .severity-low:before { content: '💡'; }
+
+        .punishment-guide {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .punishment-guide h3 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .appeal-section {
+            background: rgba(14, 246, 204, 0.05);
+            border: 1px solid rgba(14, 246, 204, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .discord-link {
+            display: inline-block;
+            background: #5865f2;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .discord-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.3);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #0d1c1f, #1a2e32);
+            padding: 2rem;
+            text-align: center;
+            border-top: 3px solid #0ef6cc;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                gap: 1rem;
+            }
+            
+            .page-title h2 {
+                font-size: 2rem;
+            }
+            
+            main {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🏝️</div>
+        <h1>The Cove Rules</h1>
+        <p>Guidelines for Paradise</p>
+    </header>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#events">Events</a>
+        <a href="https://discord.gg/kdqWqjC7KT" target="_blank">Discord</a>
+    </nav>
+
+    <main>
+        <div class="page-title">
+            <h2>🛡️ Rules & Guidelines</h2>
+            <p>These rules ensure The Cove remains a safe, fun, and creative paradise for all our community members. Please read carefully and follow them to maintain our positive environment.</p>
+        </div>
+
+        <div class="rules-container">
+            <div class="rule-category">
+                <h3>🚫 Major Violations</h3>
+                <ul class="rules-list">
+                    <li class="severity-high">No griefing - Destroying or altering others' builds without permission</li>
+                    <li class="severity-high">No stealing - Taking items from others without consent</li>
+                    <li class="severity-high">No hacking or cheating - Using unauthorized mods, exploits, or external tools</li>
+                    <li class="severity-high">No harassment or bullying - Treat all players with respect and kindness</li>
+                    <li class="severity-high">No inappropriate content - Keep builds, skins, and chat family-friendly</li>
+                </ul>
+            </div>
+
+            <div class="rule-category">
+                <h3>⚠️ Community Guidelines</h3>
+                <ul class="rules-list">
+                    <li class="severity-medium">Ask before building near others - Respect personal space and projects</li>
+                    <li class="severity-medium">No excessive redstone lag - Test your contraptions responsibly</li>
+                    <li class="severity-medium">Keep chat in English - So everyone can participate in conversations</li>
+                    <li class="severity-medium">No advertising - Don't promote other servers or external content</li>
+                    <li class="severity-medium">Report issues promptly - Help us maintain a safe environment</li>
+                </ul>
+            </div>
+
+            <div class="rule-category">
+                <h3>💡 Best Practices</h3>
+                <ul class="rules-list">
+                    <li class="severity-low">Clean up common areas after use</li>
+                    <li class="severity-low">Share resources when possible - Foster community spirit</li>
+                    <li class="severity-low">Participate in community events and projects</li>
+                    <li class="severity-low">Help new players feel welcome</li>
+                    <li class="severity-low">Use the #help channel for questions</li>
+                    <li class="severity-low">Be creative and have fun!</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="punishment-guide">
+            <h3>⚖️ Enforcement & Consequences</h3>
+            <p><strong>First Offense:</strong> Warning and education about the rules</p>
+            <p><strong>Second Offense:</strong> Temporary suspension (1-7 days depending on severity)</p>
+            <p><strong>Major Violations:</strong> Immediate permanent ban for serious offenses</p>
+            <p><strong>Repeated Violations:</strong> Permanent ban from The Cove</p>
+        </div>
+
+        <div class="appeal-section">
+            <h3>📝 Appeals Process</h3>
+            <p>Think you were unfairly punished? We're human too and mistakes happen. You can appeal any disciplinary action by contacting our moderation team through Discord. Provide your username, the date of the incident, and explain your side of the story.</p>
+            <a href="https://discord.gg/kdqWqjC7KT" class="discord-link" target="_blank">Appeal on Discord</a>
+        </div>
+    </main>
+
+    <footer>
+        
+    </footer>
+</body>
+</html>
