@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cove - Support Our Realm</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1a3a2e 0%, #0f2027 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.2); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 30px rgba(255,255,255,0.4); }
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .highlight {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .tiers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .tier-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tier-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #00ff87, #60efff);
+        }
+
+        .tier-card:nth-child(2)::before {
+            background: linear-gradient(90deg, #00ff87, #60efff);
+        }
+
+        .tier-card:nth-child(3)::before {
+            background: linear-gradient(90deg, #00ff87, #60efff);
+        }
+
+        .tier-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .tier-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .tier-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .tier-price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00ff87;
+            margin-bottom: 5px;
+        }
+
+        .tier-card:nth-child(2) .tier-price {
+            color: #00ff87;
+        }
+
+        .tier-card:nth-child(3) .tier-price {
+            color: #00ff87;
+        }
+
+        .tier-benefits {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .tier-benefits li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .tier-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00ff87;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .buy-button {
+            width: 100%;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #00ff87, #60efff);
+            color: #0f2027;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tier-card:nth-child(2) .buy-button {
+            background: linear-gradient(45deg, #00ff87, #60efff);
+            color: #0f2027;
+        }
+
+        .tier-card:nth-child(3) .buy-button {
+            background: linear-gradient(45deg, #00ff87, #60efff);
+            color: #0f2027;
+        }
+
+        .buy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .footer-info {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .footer-info h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .footer-info p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .terms {
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
+            margin-top: 20px;
+        }
+
+        .discord-note {
+            background: #7289da;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tiers-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏰 The Cove 🏰</h1>
+            <p>Support Our Realm & Keep the Adventure Going!</p>
+            <div class="highlight">
+                <p><strong>Every command system & build in the realm is made by me, no tutorials used, for you to all enjoy!</strong></p>
+                <p>All donations go towards the realm development and maintenance</p>
+                <p><strong>✨ All benefits last 30 days from activation ✨</strong></p>
+            </div>
+            <div class="discord-note">
+                📢 Contact me on Discord first, then use PayPal to complete your donation!
+            </div>
+        </div>
+
+        <div class="tiers-container">
+            <!-- Tier 1 -->
+            <div class="tier-card">
+                <div class="tier-header">
+                    <div class="tier-name">Tier 1</div>
+                    <div class="tier-price">£4</div>
+                </div>
+                <ul class="tier-benefits">
+                    <li>Access to Donator's Cove (Gens)</li>
+                    <li>Jump Boost 4 in PvP areas</li>
+                    <li>Custom effect in non-PvP areas</li>
+                    <li>50k In-Game Cash</li>
+                    <li>Permanent spot on Donator's Board</li>
+                </ul>
+                <button class="buy-button" onclick="buyTier()">Buy Tier 1</button>
+            </div>
+
+            <!-- Tier 2 -->
+            <div class="tier-card">
+                <div class="tier-header">
+                    <div class="tier-name">Tier 2</div>
+                    <div class="tier-price">£6</div>
+                </div>
+                <ul class="tier-benefits">
+                    <li>Access to Donator's Cove (Gens + Dono Shop)</li>
+                    <li>Jump Boost 4 in PvP areas</li>
+                    <li>Custom effect in non-PvP areas</li>
+                    <li>Free plot or expansion up to 60x60</li>
+                    <li>130k In-Game Cash</li>
+                    <li>Permanent spot on Donator's Board</li>
+                </ul>
+                <button class="buy-button" onclick="buyTier()">Buy Tier 2</button>
+            </div>
+
+            <!-- Tier 3 -->
+            <div class="tier-card">
+                <div class="tier-header">
+                    <div class="tier-name">Tier 3</div>
+                    <div class="tier-price">£9</div>
+                </div>
+                <ul class="tier-benefits">
+                    <li>Full Access to Donator's Cove</li>
+                    <li>All Tier 1 & 2 perks included</li>
+                    <li>Jump Boost 4 in PvP areas</li>
+                    <li>Custom effect in non-PvP areas</li>
+                    <li>450k In-Game Cash</li>
+                    <li>Permanent spot on Donator's Board</li>
+                </ul>
+                <button class="buy-button" onclick="buyTier()">Buy Tier 3</button>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            <h3>🎮 Why Support The Cove? 🎮</h3>
+            <p><strong>100% of donations go directly to realm development and maintenance</strong></p>
+            <p>• No ban-immunity or pay-to-win mechanics</p>
+            <p>• Custom-built systems made with love</p>
+            <p>• Active development and new features</p>
+            <p>• Fair and balanced gameplay for everyone</p>
+            
+            <div style="margin: 30px 0; padding: 20px; background: #f0f8ff; border-radius: 10px;">
+                <h4>💎 Additional Perks Available 💎</h4>
+                <p>Gens for your plot available separately from tiers</p>
+                <p>Donations over £8 include extra goodies - let's discuss!</p>
+            </div>
+
+            <p class="terms">
+                <strong>Terms:</strong> All terms subject to change (but unlikely to be removed). 
+                Effect levels depend on requested effect. Refunds not available as these are digital purchases that cannot be returned.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function buyTier() {
+            // Redirect to PayPal QR code link
+            window.open('https://www.paypal.com/qrcodes/p2pqrc/V77UV4CRSKFVQ', '_blank');
+        }
+
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.tier-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
