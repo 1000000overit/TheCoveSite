@@ -450,7 +450,12 @@
 
     <header>
         <div class="logo-container">
-            <div class="eye-logo">🏝️</div>
+            <div class="eye-logo">
+                <img src="https://raw.githubusercontent.com/1000000overit/TheCoveSite/refs/heads/main/TheCove.html" 
+                     alt="https://raw.githubusercontent.com/1000000overit/TheCoveSite/refs/heads/main/TheCove.html" 
+                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"
+                     onerror="this.style.display='none'; this.parentElement.innerHTML='🏝️'; this.parentElement.style.fontSize='3rem'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';">
+            </div>
         </div>
         <div>
             <h1>The Cove</h1>
@@ -632,111 +637,4 @@
           const data = parseJwt(response.credential);
           
           // Store user data
-          sharedUser.name = data.name;
-          sharedUser.email = data.email;
-          sharedUser.picture = data.picture;
-          sharedUser.provider = 'google';
-          
-          // Save to localStorage
-          localStorage.setItem('socialHubUser', JSON.stringify(sharedUser));
-          
-          showProfilePic(sharedUser.picture);
-          showLogout();
-        }
-
-        function parseJwt(token) {
-          return JSON.parse(atob(token.split('.')[1]));
-        }
-
-        // Discord Login - FIXED
-        discordLoginBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          const clientId = "1378160469235204176";
-          const redirectUri = encodeURIComponent("https://thecovesite.vercel.app/TheCove.html");
-          const scope = encodeURIComponent("identify email");
-          const discordUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}`;
-          
-          window.location.href = discordUrl;
-        });
-
-        // Discord Callback Handling (if redirected back)
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get("code");
-        
-        if (code) {
-          // Create the form data to send
-          const formData = new FormData();
-          formData.append('client_id', '1378160469235204176');
-          formData.append('client_secret', 'MQsr0a8ibMM6ZbwaDv5J_ky59-3FqhQS');
-          formData.append('grant_type', 'authorization_code');
-          formData.append('code', code);
-          formData.append('redirect_uri', 'https://thecovesite.vercel.app/TheCove.html');
-          
-          fetch('https://discord.com/api/oauth2/token', {
-            method: 'POST',
-            body: formData
-          })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(data => {
-            if (data.error) {
-              throw new Error(`Discord OAuth error: ${data.error_description || data.error}`);
-            }
-            
-            // Store the token for future use
-            localStorage.setItem('discordToken', data.access_token);
-              
-            // Get user data with the access token
-            return fetch('https://discord.com/api/users/@me', {
-              headers: {
-                Authorization: `Bearer ${data.access_token}`
-              }
-            });
-          })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(userData => {
-            sharedUser.name = userData.username;
-            sharedUser.email = userData.email || `${userData.username}@discord.local`;
-            sharedUser.provider = 'discord';
-            sharedUser.id = userData.id;
-            
-            // Set avatar URL if it exists
-            if (userData.avatar) {
-              sharedUser.picture = `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png?size=256`;
-            } else {
-              // Calculate default avatar number based on discriminator or user ID
-              const defaultAvatarNumber = userData.discriminator ? 
-                parseInt(userData.discriminator) % 5 : 
-                parseInt(userData.id) % 5;
-              sharedUser.picture = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarNumber}.png`;
-            }
-            
-            // Save to localStorage
-            localStorage.setItem('socialHubUser', JSON.stringify(sharedUser));
-            
-            showProfilePic(sharedUser.picture);
-            showLogout();
-            
-            // Remove the code from URL to prevent re-authentication on refresh
-            window.history.replaceState({}, document.title, window.location.pathname);
-          })
-          .catch(err => {
-            console.error("Discord login error:", err);
-            alert("Discord login failed. Please try again.");
-            
-            // If token exchange fails, remove code from URL
-            window.history.replaceState({}, document.title, window.location.pathname);
-          });
-        }
-    </script>
-</body>
-</html>
+          share
