@@ -1,4 +1,4 @@
-# V°•{Website Updates}•°V
+# V•{Website Updates}•V
 ## Added
 - Logging in with Google (not entirely out yet)
 - Apple login (login button not there yet)
