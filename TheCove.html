@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Cove - Minecraft Realm</title>
+    <meta name="google-signin-client_id" content="202303647205-hkoael6jehqr88t3ch2aiho65brt9ncp.apps.googleusercontent.com" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         * {
             margin: 0;
@@ -62,6 +64,10 @@
             box-shadow: 0 4px 20px rgba(14, 246, 204, 0.3);
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
         }
 
         .logo-container {
@@ -103,6 +109,16 @@
             color: #0ef6cc;
             font-style: italic;
             opacity: 0.9;
+        }
+
+        .profile-pic {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 20px;
+            border: 3px solid #0ef6cc;
+            box-shadow: 0 0 15px rgba(14, 246, 204, 0.5);
         }
 
         nav {
@@ -148,6 +164,49 @@
             background: rgba(14, 246, 204, 0.1);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(14, 246, 204, 0.3);
+        }
+
+        /* Login navigation section */
+        .login-navigation {
+            background: rgba(13, 22, 25, 0.95);
+            width: 100%;
+            border-bottom: 2px solid #0ef6cc;
+            box-shadow: 0 2px 10px rgba(14, 246, 204, 0.3);
+        }
+
+        .login-nav {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8px 10px;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .login-nav a,
+        #google-signin-button,
+        #logout {
+            color: #85f1dc;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 18px;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: inline-block;
+            position: relative;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .login-nav a:hover,
+        #google-signin-button:hover,
+        #logout:hover {
+            background: linear-gradient(135deg, #0ef6cc 0%, #85f1dc 100%);
+            color: #0b0f10;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 246, 204, 0.4);
         }
 
         main {
@@ -340,6 +399,12 @@
                 gap: 1rem;
             }
             
+            header {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 15px;
+            }
+            
             header h1 {
                 font-size: 2.5rem;
             }
@@ -355,6 +420,26 @@
             main {
                 padding: 1rem;
             }
+
+            .login-nav {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .login-nav a,
+            #google-signin-button,
+            #logout {
+                width: 100%;
+                padding: 15px;
+                border-bottom: 1px solid #0ef6cc;
+                text-align: left;
+                margin: 2px 0;
+            }
+
+            .profile-pic {
+                margin: 20px auto;
+                display: block;
+            }
         }
     </style>
 </head>
@@ -367,9 +452,20 @@
         <div class="logo-container">
             <div class="eye-logo">🏝️</div>
         </div>
-        <h1>The Cove</h1>
-        <p class="tagline">Where Adventure Meets Community</p>
+        <div>
+            <h1>The Cove</h1>
+            <p class="tagline">Where Adventure Meets Community</p>
+        </div>
+        <img id="profile-pic" class="profile-pic" src="" alt="Profile Picture" style="display:none;" />
     </header>
+
+    <div class="login-navigation">
+        <div class="login-nav">
+            <a id="discord-login" href="#">Login with Discord</a>
+            <span id="google-signin-button"></span>
+            <a id="logout" href="#" style="display:none;">Logout</a>
+        </div>
+    </div>
 
     <nav>
         <a href="#about">About</a>
@@ -451,5 +547,103 @@
             </p>
         </div>
     </footer>
-</body>
-</html>
+
+    <script>
+        const sharedUser = {};
+        const profilePic = document.getElementById("profile-pic");
+        const discordLoginBtn = document.getElementById("discord-login");
+        const googleButtonContainer = document.getElementById("google-signin-button");
+        const logoutBtn = document.getElementById("logout");
+
+        // Check if user is already logged in when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+          checkLoginStatus();
+        });
+
+        function checkLoginStatus() {
+          const userData = localStorage.getItem('socialHubUser');
+          
+          if (userData) {
+            const user = JSON.parse(userData);
+            Object.assign(sharedUser, user);
+            showProfilePic(user.picture);
+            showLogout();
+          }
+        }
+
+        function showProfilePic(url) {
+          profilePic.src = url;
+          profilePic.style.display = "block";
+        }
+
+        function showLogout() {
+          logoutBtn.style.display = "inline";
+          discordLoginBtn.style.display = "none";
+          googleButtonContainer.style.display = "none";
+        }
+
+        function resetUI() {
+          profilePic.src = "";
+          profilePic.style.display = "none";
+          logoutBtn.style.display = "none";
+          discordLoginBtn.style.display = "inline";
+          googleButtonContainer.style.display = "inline";
+          
+          // Clear localStorage
+          localStorage.removeItem('socialHubUser');
+          
+          // Reset shared user object
+          Object.keys(sharedUser).forEach(key => delete sharedUser[key]);
+          
+          // For Google logout
+          google.accounts.id.disableAutoSelect();
+        }
+
+        logoutBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          resetUI();
+          // Don't reload the page to prevent the glitch
+        });
+
+        // Google Login
+        window.onload = () => {
+          google.accounts.id.initialize({
+            client_id: "202303647205-hkoael6jehqr88t3ch2aiho65brt9ncp.apps.googleusercontent.com",
+            callback: handleGoogleCredentialResponse
+          });
+          google.accounts.id.renderButton(
+            googleButtonContainer,
+            { theme: "outline", size: "medium" }
+          );
+          
+          // Only prompt if user is not already logged in
+          if (!localStorage.getItem('socialHubUser')) {
+            google.accounts.id.prompt();
+          }
+        };
+
+        function handleGoogleCredentialResponse(response) {
+          const data = parseJwt(response.credential);
+          
+          // Store user data
+          sharedUser.name = data.name;
+          sharedUser.email = data.email;
+          sharedUser.picture = data.picture;
+          sharedUser.provider = 'google';
+          
+          // Save to localStorage
+          localStorage.setItem('socialHubUser', JSON.stringify(sharedUser));
+          
+          showProfilePic(sharedUser.picture);
+          showLogout();
+        }
+
+        function parseJwt(token) {
+          return JSON.parse(atob(token.split('.')[1]));
+        }
+
+        // Discord Login
+        discordLoginBtn.addEventListener("click", () => {
+          const clientId = "1378160469235204176";
+          const redirectUri = encodeURIComponent("https://thesocialhub.vercel.app/TheCove.html");
+          const discordUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=identify%20email%20guilds`
