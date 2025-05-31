@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kit Information - The Cove</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0b0f10 0%, #0d1618 50%, #0f1a1d 100%);
+            color: #b2f0e9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0d1c1f, #1a2e32);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid #0ef6cc;
+            box-shadow: 0 4px 20px rgba(14, 246, 204, 0.3);
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #85f1dc;
+            text-shadow: 0 0 20px rgba(133, 241, 220, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        nav {
+            background: rgba(11, 26, 30, 0.9);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #85f1dc;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #0ef6cc;
+            background: rgba(14, 246, 204, 0.1);
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title h2 {
+            font-size: 3rem;
+            color: #0ef6cc;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(14, 246, 204, 0.5);
+        }
+
+        .page-title p {
+            font-size: 1.2rem;
+            color: #85f1dc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .kits-container {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .kit-category {
+            background: linear-gradient(135deg, #0d1618, #1a2328);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #0ef6cc;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .kit-category h3 {
+            color: #0ef6cc;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .kit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .kit-card {
+            background: rgba(14, 246, 204, 0.05);
+            border: 1px solid rgba(14, 246, 204, 0.2);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .kit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(14, 246, 204, 0.1);
+            border-color: rgba(14, 246, 204, 0.4);
+        }
+
+        .kit-name {
+            color: #0ef6cc;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .kit-items {
+            list-style: none;
+            padding: 0;
+        }
+
+        .kit-items li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(14, 246, 204, 0.1);
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .kit-items li:before {
+            content: '⚔️';
+            position: absolute;
+            left: 0;
+            color: #0ef6cc;
+            font-size: 1.1rem;
+        }
+
+        .kit-items li:last-child {
+            border-bottom: none;
+        }
+
+        .additional-kits {
+            background: linear-gradient(135deg, #1a2328, #0d1618);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid #0ef6cc;
+            margin-top: 2rem;
+        }
+
+        .additional-kits h3 {
+            color: #0ef6cc;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .additional-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .additional-item {
+            background: rgba(14, 246, 204, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .additional-item:hover {
+            background: rgba(14, 246, 204, 0.2);
+            transform: scale(1.05);
+        }
+
+        .note-section {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .note-section h3 {
+            color: #ffc107;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #0d1c1f, #1a2e32);
+            padding: 2rem;
+            text-align: center;
+            border-top: 3px solid #0ef6cc;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                gap: 1rem;
+            }
+            
+            .page-title h2 {
+                font-size: 2rem;
+            }
+            
+            main {
+                padding: 1rem;
+            }
+
+            .kit-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .additional-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">⚔️</div>
+        <h1>The Cove Kits</h1>
+        <p>Available Equipment & Supplies</p>
+    </header>
+
+    <nav>
+        <a href="TheCove.html">Home</a>
+        <a href="Rules.html">Rules</a>
+        <a href="donations.html">Donations</a>
+        <a href="Feature.html">Features</a>
+    </nav>
+
+    <main>
+        <div class="page-title">
+            <h2>⚔️ Kit Information ⚔️</h2>
+            <p>All available kits and equipment in The Cove. Contact staff to obtain these powerful items!</p>
+        </div>
+
+        <div class="kits-container">
+            <div class="kit-category">
+                <h3>💎 Diamond Kits</h3>
+                <div class="kit-grid">
+                    <div class="kit-card">
+                        <div class="kit-name">Diamond Kit Mk.2</div>
+                        <ul class="kit-items">
+                            <li>Sharpness 4 Sword</li>
+                            <li>Efficiency 4 Tools</li>
+                            <li>Protection 3 Armour</li>
+                            <li>Potion of Strength</li>
+                            <li>64 Steak</li>
+                        </ul>
+                    </div>
+
+                    <div class="kit-card">
+                        <div class="kit-name">Diamond Kit Mk.3</div>
+                        <ul class="kit-items">
+                            <li>Efficiency 5 Tools</li>
+                            <li>Protection 4 Armour</li>
+                            <li>Infinity & Punch 2 Bow</li>
+                            <li>Potion of Strength 2</li>
+                            <li>64 Golden Carrots</li>
+                            <li>64 Arrows</li>
+                        </ul>
+                    </div>
+
+                    <div class="kit-card">
+                        <div class="kit-name">Diamond Kit Mk.4</div>
+                        <ul class="kit-items">
+                            <li>Maxed out Tools and Armour (no mending)</li>
+                            <li>64 Golden Apples</li>
+                            <li>Flame, Infinity, Punch 2 and Power 5 Bow</li>
+                            <li>Arrow of Harming 2</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kit-category">
+                <h3>🧪 Potion Kits</h3>
+                <div class="kit-grid">
+                    <div class="kit-card">
+                        <div class="kit-name">Potion Kit</div>
+                        <ul class="kit-items">
+                            <li>2 Fire Resistance</li>
+                            <li>2 Speed</li>
+                            <li>2 Regeneration</li>
+                            <li>2 Strength</li>
+                            <li>2 Splash Poison</li>
+                            <li>2 Splash Regeneration</li>
+                            <li>2 Lingering Night Vision</li>
+                        </ul>
+                    </div>
+
+                    <div class="kit-card">
+                        <div class="kit-name">Potion Kit Mk.2</div>
+                        <ul class="kit-items">
+                            <li>3 Fire Resistance</li>
+                            <li>3 Speed 2</li>
+                            <li>3 Regeneration 2</li>
+                            <li>3 Strength 2</li>
+                            <li>3 Splash Poison 2</li>
+                            <li>3 Splash Regeneration 2</li>
+                            <li>3 Jump Boost 2</li>
+                            <li>Splash Weakness</li>
+                            <li>Splash Slowness</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="additional-kits">
+            <h3>✨ Additional Kits Available</h3>
+            <div class="additional-grid">
+                <div class="additional-item">No Thorns/Knockback Diamond Kit MK.4</div>
+                <div class="additional-item">Splash Variant Potion Kit MK.2</div>
+                <div class="additional-item">Half Totem Kit - 13 Totems</div>
+                <div class="additional-item">Full Totem Kit - 27 Totems</div>
+                <div class="additional-item">Elytra</div>
+                <div class="additional-item">Unbreaking Elytra</div>
+                <div class="additional-item">Unbreaking & Mending Elytra</div>
+                <div class="additional-item">Half Fireworks Kit - 13 Fireworks</div>
+                <div class="additional-item">Full Fireworks Kit - 27 Fireworks</div>
+                <div class="additional-item">Silence Trims</div>
+                <div class="additional-item">Mace</div>
+                <div class="additional-item">Enchanted Mace</div>
+                <div class="additional-item">Full Enchanted Mace</div>
+                <div class="additional-item">Wind Charges x10</div>
+                <div class="additional-item">Crystal Kit - 32 Nether Crystals, 32 Obsidian</div>
+            </div>
+        </div>
+
+        <div class="note-section">
+            <h3>📋 How to Obtain Kits</h3>
+            <p>Contact The Cove staff members through Discord or in-game to request any of these kits. Some kits may require specific permissions or donations to access. Check with staff for availability and requirements.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 The Cove. All kits subject to availability and server rules.</p>
+    </footer>
+</body>
+</html>
