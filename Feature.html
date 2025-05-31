@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Cove - Support Our Realm</title>
+    <title>Features - The Cove</title>
     <style>
         * {
             margin: 0;
@@ -11,383 +11,388 @@
             box-sizing: border-box;
         }
 
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(15, 32, 39, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 255, 135, 0.2);
+        body {
+            background: linear-gradient(135deg, #0b0f10 0%, #0d1618 50%, #0f1a1d 100%);
+            color: #b2f0e9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0d1c1f, #1a2e32);
+            padding: 2rem;
             text-align: center;
+            border-bottom: 3px solid #0ef6cc;
+            box-shadow: 0 4px 20px rgba(14, 246, 204, 0.3);
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #85f1dc;
+            text-shadow: 0 0 20px rgba(133, 241, 220, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        nav {
+            background: rgba(11, 26, 30, 0.9);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
         }
 
         nav a {
-            color: #00ff87;
+            color: #85f1dc;
             text-decoration: none;
-            margin: 0 30px;
             font-weight: bold;
-            font-size: 1.1rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
         }
 
         nav a:hover {
-            color: #60efff;
-            text-shadow: 0 0 10px rgba(96, 239, 255, 0.5);
+            color: #0ef6cc;
+            background: rgba(14, 246, 204, 0.1);
+            transform: translateY(-2px);
         }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #00ff87, #60efff);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #1a3a2e 0%, #0f2027 100%);
-            min-height: 100vh;
-            padding-top: 70px;
-        }
-
-        .container {
+        main {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 2rem;
         }
 
-        .header {
+        .page-title {
             text-align: center;
-            margin-bottom: 50px;
-            color: white;
-            padding: 40px 0;
+            margin-bottom: 3rem;
         }
 
-        .header h1 {
+        .page-title h2 {
             font-size: 3rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: glow 2s ease-in-out infinite alternate;
+            color: #0ef6cc;
+            margin-bottom: 1rem;
         }
 
-        @keyframes glow {
-            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.2); }
-            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 30px rgba(255,255,255,0.4); }
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .highlight {
-            background: rgba(255,255,255,0.2);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            backdrop-filter: blur(10px);
-        }
-
-        .tiers-container {
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .tier-card {
-            background: rgba(255,255,255,0.95);
+        .feature-card {
+            background: linear-gradient(135deg, #0d1618, #1a2328);
+            padding: 2.5rem;
             border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            border-left: 6px solid #0ef6cc;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .tier-card::before {
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(14, 246, 204, 0.3);
+        }
+
+        .feature-card:before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
             right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #00ff87, #60efff);
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(14, 246, 204, 0.1), transparent);
+            border-radius: 50%;
         }
 
-        .tier-card:nth-child(2)::before {
-            background: linear-gradient(90deg, #00ff87, #60efff);
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
-        .tier-card:nth-child(3)::before {
-            background: linear-gradient(90deg, #00ff87, #60efff);
-        }
-
-        .tier-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-        }
-
-        .tier-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .tier-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .tier-price {
+        .feature-icon {
             font-size: 3rem;
-            font-weight: bold;
-            color: #00ff87;
-            margin-bottom: 5px;
+            background: linear-gradient(45deg, #0ef6cc, #85f1dc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .tier-card:nth-child(2) .tier-price {
-            color: #00ff87;
+        .feature-card h3 {
+            color: #0ef6cc;
+            font-size: 1.8rem;
+            margin: 0;
         }
 
-        .tier-card:nth-child(3) .tier-price {
-            color: #00ff87;
+        .feature-card p {
+            color: #b2f0e9;
+            font-size: 1.1rem;
+            line-height: 1.8;
         }
 
-        .tier-benefits {
+        .feature-list {
             list-style: none;
-            margin-bottom: 30px;
+            padding: 0;
+            margin-top: 1rem;
         }
 
-        .tier-benefits li {
-            padding: 8px 0;
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
             position: relative;
-            padding-left: 25px;
+            color: #85f1dc;
         }
 
-        .tier-benefits li::before {
-            content: '✓';
+        .feature-list li:before {
+            content: '✨';
             position: absolute;
             left: 0;
-            color: #00ff87;
-            font-weight: bold;
-            font-size: 1.2rem;
+            color: #0ef6cc;
         }
 
-        .buy-button {
-            width: 100%;
-            padding: 15px 30px;
-            background: linear-gradient(45deg, #00ff87, #60efff);
-            color: #0f2027;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .tier-card:nth-child(2) .buy-button {
-            background: linear-gradient(45deg, #00ff87, #60efff);
-            color: #0f2027;
-        }
-
-        .tier-card:nth-child(3) .buy-button {
-            background: linear-gradient(45deg, #00ff87, #60efff);
-            color: #0f2027;
-        }
-
-        .buy-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        .footer-info {
-            background: rgba(255,255,255,0.95);
+        .landmark-section {
+            background: linear-gradient(135deg, rgba(14, 246, 204, 0.05), rgba(133, 241, 220, 0.02));
+            padding: 3rem 2rem;
             border-radius: 20px;
-            padding: 30px;
+            margin: 3rem 0;
+            border: 1px solid rgba(14, 246, 204, 0.2);
+        }
+
+        .landmark-section h2 {
+            color: #0ef6cc;
+            font-size: 2.5rem;
             text-align: center;
-            margin-top: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
         }
 
-        .footer-info h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
+        .landmarks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
 
-        .footer-info p {
-            margin-bottom: 10px;
-            color: #666;
-        }
-
-        .terms {
-            font-size: 0.9rem;
-            color: #888;
-            font-style: italic;
-            margin-top: 20px;
-        }
-
-        .discord-note {
-            background: #7289da;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
+        .landmark-card {
+            background: rgba(13, 22, 24, 0.8);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(14, 246, 204, 0.1);
             text-align: center;
+        }
+
+        .landmark-card h4 {
+            color: #0ef6cc;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .landmark-card .landmark-emoji {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .stats-highlight {
+            background: linear-gradient(135deg, #1a2e32, #0d1c1f);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
             font-weight: bold;
+            color: #0ef6cc;
+            display: block;
+        }
+
+        .stat-label {
+            color: #85f1dc;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #0d1c1f, #1a2e32);
+            padding: 2rem;
+            text-align: center;
+            border-top: 3px solid #0ef6cc;
+            margin-top: 3rem;
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .tiers-container {
+            .features-grid {
                 grid-template-columns: 1fr;
             }
             
-            .container {
-                padding: 10px;
+            .page-title h2 {
+                font-size: 2rem;
+            }
+            
+            main {
+                padding: 1rem;
             }
         }
     </style>
 </head>
 <body>
+    <header>
+        <div class="logo">🏝️</div>
+        <h1>The Cove Features</h1>
+        <p>Discover What Makes Us Special</p>
+    </header>
+
     <nav>
         <a href="TheCove.html">Home</a>
-        <a href="#about">About</a>
         <a href="Rules.html">Rules</a>
-        <a href="Feature.html">Features</a>
+        <a href="Products.html">Products</a>
+        <a href="https://discord.gg/kdqWqjC7KT" target="_blank">Discord</a>
     </nav>
-    <div class="container">
-        <div class="header">
-            <h1>🏰 The Cove 🏰</h1>
-            <p>Support Our Realm & Keep the Adventure Going!</p>
-            <div class="highlight">
-                <p><strong>Every command system & build in the realm is made by me, no tutorials used, for you to all enjoy!</strong></p>
-                <p>All donations go towards the realm development and maintenance</p>
-                <p><strong>✨ All benefits last 30 days from activation ✨</strong></p>
+
+    <main>
+        <div class="page-title">
+            <h2>🌟 Realm Features</h2>
+            <p>Experience the best Minecraft has to offer in our carefully crafted paradise</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">🏗️</span>
+                    <h3>Community</h3>
+                </div>
+                <p>Join amazing teamwork events.</p>
+                <ul class="feature-list">
+                    <li>Everyday fun!</li>
+                </ul>
             </div>
-            <div class="discord-note">
-                📢 Contact me on Discord first, then use PayPal to complete your donation!
+
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">🗺️</span>
+                    <h3>Endless Exploration</h3>
+                </div>
+                <p>Our vast world is filled with friendly players.</p>
+                <ul class="feature-list">
+                    <li>Custom spawn</li>
+                    <li>plots</li>
+                    <li>amazing pvp</li>
+                    <li>Player-made attractions</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Secure Areas</h3>
+                </div>
+                <p>Safe places to build a base.</p>
+                <ul class="feature-list">
+                    <li>Custom plots</li>
+
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">🎮</span>
+                    <h3>Events & Challenges</h3>
+                </div>
+                <p>Regular events keep the community engaged with building contests, treasure hunts, PvP tournaments, and seasonal celebrations.</p>
+                <ul class="feature-list">
+                    <li>everyday fun</li>
+                    <li>Fun chat activities </li>
+                    <li>PvP tournaments</li>
+                    <li>Holiday celebrations</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">🛡️</span>
+                    <h3>Safe Environment</h3>
+                </div>
+                <p>Advanced protection systems and dedicated moderation ensure your creations are safe and the community remains friendly and welcoming.</p>
+                <ul class="feature-list">
+                    <li>Grief protection</li>
+                    <li>Regular backups</li>
+                    <li>Active moderation</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-header">
+                    <span class="feature-icon">💎</span>
+                    <h3>Economy System</h3>
+                </div>
+                <p>Trade resources, set up shops, and participate in our thriving player-driven economy that adds depth to your Minecraft experience.</p>
+                <ul class="feature-list">
+                    <li>Player shops</li>
+                    <li>Trading districts</li>
+                    <li>Ranks</li>
+                    <li>Xp and pvp system</li>
+                </ul>
             </div>
         </div>
 
-        <div class="tiers-container">
-            <!-- Tier 1 -->
-            <div class="tier-card">
-                <div class="tier-header">
-                    <div class="tier-name">Tier 1</div>
-                    <div class="tier-price">£4</div>
+        <div class="landmark-section">
+            <h2>🏛️ Amazing places</h2>
+            <div class="landmarks-grid">
+                <div class="landmark-card">
+                    <span class="landmark-emoji">🏠</span>
+                    <h4>Spawn</h4>
+                    <p>Main spawn area</p>
                 </div>
-                <ul class="tier-benefits">
-                    <li>Access to Donator's Cove (Gens)</li>
-                    <li>Jump Boost 4 in PvP areas</li>
-                    <li>Custom effect in non-PvP areas</li>
-                    <li>50k In-Game Cash</li>
-                    <li>Permanent spot on Donator's Board</li>
-                </ul>
-                <button class="buy-button" onclick="buyTier()">Buy Tier 1</button>
-            </div>
-
-            <!-- Tier 2 -->
-            <div class="tier-card">
-                <div class="tier-header">
-                    <div class="tier-name">Tier 2</div>
-                    <div class="tier-price">£6</div>
-                </div>
-                <ul class="tier-benefits">
-                    <li>Access to Donator's Cove (Gens + Dono Shop)</li>
-                    <li>Jump Boost 4 in PvP areas</li>
-                    <li>Custom effect in non-PvP areas</li>
-                    <li>Free plot or expansion up to 60x60</li>
-                    <li>130k In-Game Cash</li>
-                    <li>Permanent spot on Donator's Board</li>
-                </ul>
-                <button class="buy-button" onclick="buyTier()">Buy Tier 2</button>
-            </div>
-
-            <!-- Tier 3 -->
-            <div class="tier-card">
-                <div class="tier-header">
-                    <div class="tier-name">Tier 3</div>
-                    <div class="tier-price">£9</div>
-                </div>
-                <ul class="tier-benefits">
-                    <li>Full Access to Donator's Cove</li>
-                    <li>All Tier 1 & 2 perks included</li>
-                    <li>Jump Boost 4 in PvP areas</li>
-                    <li>Custom effect in non-PvP areas</li>
-                    <li>450k In-Game Cash</li>
-                    <li>Permanent spot on Donator's Board</li>
-                </ul>
-                <button class="buy-button" onclick="buyTier()">Buy Tier 3</button>
             </div>
         </div>
 
-        <div class="footer-info">
-            <h3>🎮 Why Support The Cove? 🎮</h3>
-            <p><strong>100% of donations go directly to realm development and maintenance</strong></p>
-            <p>• No ban-immunity or pay-to-win mechanics</p>
-            <p>• Custom-built systems made with love</p>
-            <p>• Active development and new features</p>
-            <p>• Fair and balanced gameplay for everyone</p>
-            
-            <div style="margin: 30px 0; padding: 20px; background: #f0f8ff; border-radius: 10px;">
-                <h4>💎 Additional Perks Available 💎</h4>
-                <p>Gens for your plot available separately from tiers</p>
-                <p>Donations over £8 include extra goodies - let's discuss!</p>
+        <div class="stats-highlight">
+            <h2>🎯 Feature Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">90%</span>
+                    <div class="stat-label">Freindly</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100+</span>
+                    <div class="stat-label">Protected Builds</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <div class="stat-label">Active Shops</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <div class="stat-label">Server Uptime</div>
+                </div>
             </div>
-
-            <p class="terms">
-                <strong>Terms:</strong> All terms subject to change (but unlikely to be removed). 
-                Effect levels depend on requested effect. Refunds not available as these are digital purchases that cannot be returned.
-            </p>
         </div>
-    </div>
+    </main>
 
-    <script>
-        function buyTier() {
-            // Redirect to PayPal QR code link
-            window.open('https://www.paypal.com/qrcodes/p2pqrc/V77UV4CRSKFVQ', '_blank');
-        }
-
-        // Add some interactive elements
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.tier-card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-        });
-    </script>
+    <footer>
+        <p>&copy; 2025 The Cove Realm. Features constantly evolving with our community.</p>
+    </footer>
 </body>
 </html>
