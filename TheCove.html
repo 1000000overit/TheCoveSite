@@ -645,7 +645,7 @@
         // Discord Login
         discordLoginBtn.addEventListener("click", () => {
           const clientId = "1378160469235204176";
-          const redirectUri = encodeURIComponent("https://thesocialhub.vercel.app/TheCove.html");
+          const redirectUri = encodeURIComponent("https://thecovesite.vercel.app/TheCove.html");
           const discordUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=identify%20email%20guilds`
           window.location.href = discordUrl;
         });
