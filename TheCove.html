@@ -649,3 +649,67 @@
           const clientId = "1378160469235204176";
           const redirectUri = encodeURIComponent("https://thecovesite.vercel.app/TheCove.html#");
           const discordUrl = `https://discord.com/api/oauth2/authorize?c
+          window.location.href = discordUrl;
+        });
+
+        // Discord Callback Handling (if redirected back)
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get("code");
+        
+        if (code) {
+          // Create the form data to send
+          const formData = new FormData();
+          formData.append('client_id', '1378160469235204176');
+          formData.append('client_secret', 'xVkD2hjHXHs0M1mY-M8ztrk2RqYgZXPZ');
+          formData.append('grant_type', 'authorization_code');
+          formData.append('code', code);
+          formData.append('redirect_uri', 'https://thecovesite.vercel.app/TheCove.html#');
+          
+          fetch('https://discord.com/api/oauth2/token', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            // Store the token for future use
+            localStorage.setItem('discordToken', data.access_token);
+              
+            // Get user data with the access token
+            return fetch('https://discord.com/api/users/@me', {
+              headers: {
+                Authorization: `Bearer ${data.access_token}`
+              }
+            });
+          })
+          .then(response => response.json())
+          .then(userData => {
+            sharedUser.name = userData.username;
+            sharedUser.email = userData.email;
+            sharedUser.provider = 'discord';
+            
+            // Set avatar URL if it exists
+            if (userData.avatar) {
+              sharedUser.picture = `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png`;
+            } else {
+              sharedUser.picture = 'https://cdn.discordapp.com/embed/avatars/0.png'; // Default avatar
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('socialHubUser', JSON.stringify(sharedUser));
+            
+            showProfilePic(sharedUser.picture);
+            showLogout();
+            
+            // Remove the code from URL to prevent re-authentication on refresh
+            window.history.replaceState({}, document.title, window.location.pathname);
+          })
+          .catch(err => {
+            console.error("Discord login error:", err);
+            
+            // If token exchange fails, remove code from URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+          });
+        }
+    </script>
+</body>
+</html>
