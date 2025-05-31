@@ -651,4 +651,92 @@
         // Discord Login - FIXED
         discordLoginBtn.addEventListener("click", (e) => {
           e.preventDefault();
-          const clientI
+          const clientId = "1378160469235204176";
+          const redirectUri = encodeURIComponent("https://thecovesite.vercel.app/TheCove.html");
+          const scope = encodeURIComponent("identify email");
+          const discordUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}`;
+          
+          window.location.href = discordUrl;
+        });
+
+        // Discord Callback Handling (if redirected back)
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get("code");
+        
+        if (code) {
+          // Create the form data to send
+          const formData = new FormData();
+          formData.append('client_id', '1378160469235204176');
+          formData.append('client_secret', 'MQsr0a8ibMM6ZbwaDv5J_ky59-3FqhQS');
+          formData.append('grant_type', 'authorization_code');
+          formData.append('code', code);
+          formData.append('redirect_uri', 'https://thecovesite.vercel.app/TheCove.html');
+          
+          fetch('https://discord.com/api/oauth2/token', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data.error) {
+              throw new Error(`Discord OAuth error: ${data.error_description || data.error}`);
+            }
+            
+            // Store the token for future use
+            localStorage.setItem('discordToken', data.access_token);
+              
+            // Get user data with the access token
+            return fetch('https://discord.com/api/users/@me', {
+              headers: {
+                Authorization: `Bearer ${data.access_token}`
+              }
+            });
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(userData => {
+            sharedUser.name = userData.username;
+            sharedUser.email = userData.email || `${userData.username}@discord.local`;
+            sharedUser.provider = 'discord';
+            sharedUser.id = userData.id;
+            
+            // Set avatar URL if it exists
+            if (userData.avatar) {
+              sharedUser.picture = `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png?size=256`;
+            } else {
+              // Calculate default avatar number based on discriminator or user ID
+              const defaultAvatarNumber = userData.discriminator ? 
+                parseInt(userData.discriminator) % 5 : 
+                parseInt(userData.id) % 5;
+              sharedUser.picture = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarNumber}.png`;
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('socialHubUser', JSON.stringify(sharedUser));
+            
+            showProfilePic(sharedUser.picture);
+            showLogout();
+            
+            // Remove the code from URL to prevent re-authentication on refresh
+            window.history.replaceState({}, document.title, window.location.pathname);
+          })
+          .catch(err => {
+            console.error("Discord login error:", err);
+            alert("Discord login failed. Please try again.");
+            
+            // If token exchange fails, remove code from URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+          });
+        }
+    </script>
+</body>
+</html>
