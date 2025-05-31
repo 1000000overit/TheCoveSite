@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Information - The Cove</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0b0f10 0%, #0d1618 50%, #0f1a1d 100%);
+            color: #b2f0e9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0d1c1f, #1a2e32);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid #0ef6cc;
+            box-shadow: 0 4px 20px rgba(14, 246, 204, 0.3);
+        }
+
+        header img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        nav {
+            background: rgba(11, 26, 30, 0.9);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #85f1dc;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #0ef6cc;
+            background: rgba(14, 246, 204, 0.1);
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title h2 {
+            font-size: 3rem;
+            color: #0ef6cc;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(14, 246, 204, 0.5);
+        }
+
+        .page-title p {
+            font-size: 1.2rem;
+            color: #85f1dc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .activation-section {
+            background: linear-gradient(135deg, #1a2328, #0d1618);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 2px solid #0ef6cc;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .activation-section h3 {
+            color: #0ef6cc;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .activation-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .activation-card {
+            background: rgba(14, 246, 204, 0.1);
+            border: 1px solid rgba(14, 246, 204, 0.3);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .activation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(14, 246, 204, 0.2);
+        }
+
+        .activation-card h4 {
+            color: #ffc107;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .activation-card p {
+            font-size: 1.1rem;
+            color: #b2f0e9;
+        }
+
+        .powers-container {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .power-category {
+            background: linear-gradient(135deg, #0d1618, #1a2328);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #0ef6cc;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .power-category h3 {
+            color: #0ef6cc;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .power-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .power-card {
+            background: rgba(14, 246, 204, 0.05);
+            border: 1px solid rgba(14, 246, 204, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .power-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(14, 246, 204, 0.1);
+            border-color: rgba(14, 246, 204, 0.4);
+        }
+
+        .power-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(14, 246, 204, 0.03), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .power-card:hover::before {
+            opacity: 1;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .power-name {
+            color: #0ef6cc;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .power-emoji {
+            font-size: 3rem;
+            display: block;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .effects-list {
+            list-style: none;
+            padding: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .effects-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(14, 246, 204, 0.1);
+            position: relative;
+            padding-left: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .effects-list li:before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            color: #0ef6cc;
+            font-size: 1.2rem;
+        }
+
+        .effects-list li:last-child {
+            border-bottom: none;
+        }
+
+        .positive-effect {
+            color: #4ade80;
+        }
+
+        .negative-effect {
+            color: #f87171;
+        }
+
+        .neutral-effect {
+            color: #fbbf24;
+        }
+
+        .note-section {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .note-section h3 {
+            color: #ffc107;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .note-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #0d1c1f, #1a2e32);
+            padding: 2rem;
+            text-align: center;
+            border-top: 3px solid #0ef6cc;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                gap: 1rem;
+            }
+            
+            .page-title h2 {
+                font-size: 2rem;
+            }
+            
+            main {
+                padding: 1rem;
+            }
+
+            .power-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .activation-info {
+                grid-template-columns: 1fr;
+            }
+
+            .power-name {
+                font-size: 1.5rem;
+            }
+
+            .power-emoji {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://raw.githubusercontent.com/1000000overit/TheCoveSite/refs/heads/main/POWERS.png" alt="The Cove Powers" style="max-width: 100%; height: auto; margin-bottom: 1rem;">
+        <p>Unique Abilities & Effects</p>
+    </header>
+
+    <nav>
+        <a href="TheCove.html">Home</a>
+        <a href="#about">About</a>
+        <a href="Products.html">Donations</a>
+        <a href="Rules.html">Rules</a>
+        <a href="Feature.html">Features</a>
+    </nav>
+
+    <main>
+        <div class="page-title">
+            <h2>⚡ Power Information ⚡</h2>
+            <p>Discover the unique powers available in The Cove and their special effects!</p>
+        </div>
+
+        <div class="activation-section">
+            <h3>🌸 Power Activation</h3>
+            <div class="activation-info">
+                <div class="activation-card">
+                    <h4>🌺 Activate Power</h4>
+                    <p><strong>Throw Flowering Azalea</strong> to activate your power for <strong>10 minutes!</strong> (Unlimited use)</p>
+                </div>
+                <div class="activation-card">
+                    <h4>🍃 Clear Effects</h4>
+                    <p><strong>Throw Azalea</strong> to clear your effects at any time</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="powers-container">
+            <div class="power-category">
+                <h3>🔮 Available Powers</h3>
+                <div class="power-grid">
+                    <div class="power-card">
+                        <span class="power-emoji">🐸</span>
+                        <div class="power-name">Axolotl</div>
+                        <ul class="effects-list">
+                            <li class="positive-effect">Water Breathing</li>
+                            <li class="positive-effect">Speed 2</li>
+                            <li class="negative-effect">Weakness 1</li>
+                        </ul>
+                    </div>
+
+                    <div class="power-card">
+                        <span class="power-emoji">🐢</span>
+                        <div class="power-name">Turtle</div>
+                        <ul class="effects-list">
+                            <li class="negative-effect">Slowness 3</li>
+                            <li class="positive-effect">Resistance 4</li>
+                        </ul>
+                    </div>
+
+                    <div class="power-card">
+                        <span class="power-emoji">🐔</span>
+                        <div class="power-name">Chicken</div>
+                        <ul class="effects-list">
+                            <li class="positive-effect">Slow Falling</li>
+                            <li class="positive-effect">Speed 2</li>
+                            <li class="negative-effect">Weakness 2</li>
+                        </ul>
+                    </div>
+
+                    <div class="power-card">
+                        <span class="power-emoji">🐷</span>
+                        <div class="power-name">Piglin</div>
+                        <ul class="effects-list">
+                            <li class="positive-effect">Fireproof</li>
+                            <li class="positive-effect">Strength 2</li>
+                            <li class="negative-effect">Darkness</li>
+                            <li class="negative-effect">Hunger</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="note-section" id="about">
+            <h3>📋 How Powers Work</h3>
+            <p>Powers in The Cove provide unique gameplay experiences with both advantages and drawbacks. Each power lasts for 10 minutes once activated and can be used unlimited times. Choose your power wisely based on your playstyle and current objectives!</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 The Cove. All powers subject to server rules and balance updates.</p>
+    </footer>
+</body>
+</html>
